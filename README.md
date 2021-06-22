@@ -48,7 +48,53 @@ http-client:
 
 ```
 
+5. 自定义Request 拦截器
+ 实现ClientHttpRequestInterceptor，并放到Spring 容器中
 
+```java
+/**
+ * 记录 restTemplate 访问信息
+ * @author Rong.Jia
+ * @date 2020/02/05 14:33
+ */
+@Slf4j
+@Component
+public class TrackLogClientHttpRequestInterceptor implements ClientHttpRequestInterceptor {
+
+    @Override
+    public ClientHttpResponse intercept(HttpRequest request, byte[] body, ClientHttpRequestExecution execution) throws IOException {
+        trackRequest(request,body);
+        ClientHttpResponse httpResponse = execution.execute(request, body);
+        trackResponse(httpResponse);
+        return httpResponse;
+    }
+
+    private void trackResponse(ClientHttpResponse httpResponse)throws IOException {
+        log.debug("============================response begin==========================================");
+        log.debug("Status code  : {}", httpResponse.getStatusCode());
+        log.debug("Status text  : {}", httpResponse.getStatusText());
+        log.debug("Headers      : {}", httpResponse.getHeaders());
+        log.debug("=======================response end=================================================");
+    }
+
+    private void trackRequest(HttpRequest request, byte[] body)throws UnsupportedEncodingException {
+        log.debug("======= request begin ========");
+        log.debug("uri : {}", request.getURI());
+        log.debug("method : {}", request.getMethod());
+        log.debug("headers : {}", request.getHeaders());
+        log.debug("request body : {}", new String(body, StandardCharsets.UTF_8));
+        log.debug("======= request end ========");
+    }
+
+}
+
+```
+
+
+
+ 
+ 
+ 
 
 
 

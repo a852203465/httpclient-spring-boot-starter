@@ -1,6 +1,7 @@
 package cn.darkjrong.http.config;
 
 import cn.darkjrong.spring.boot.autoconfigure.HttpClientPoolProperties;
+import cn.hutool.core.collection.CollectionUtil;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson.support.config.FastJsonConfig;
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
@@ -27,8 +28,11 @@ import org.apache.http.protocol.HTTP;
 import org.apache.http.ssl.SSLContextBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeansException;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
@@ -56,14 +60,19 @@ import java.util.*;
 @Configuration
 @EnableConfigurationProperties({HttpClientPoolProperties.class})
 @ConditionalOnClass(value = {RestTemplate.class, CloseableHttpClient.class})
-public class HttpClientConfig {
+public class HttpClientConfig implements ApplicationContextAware {
 
     private static final Logger log = LoggerFactory.getLogger(HttpClientConfig.class);
 
     private final HttpClientPoolProperties httpClientPoolProperties;
-
+    private ApplicationContext applicationContext;
     public HttpClientConfig(HttpClientPoolProperties httpClientPoolProperties) {
         this.httpClientPoolProperties = httpClientPoolProperties;
+    }
+
+    @Override
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        this.applicationContext = applicationContext;
     }
 
     @Bean
@@ -217,8 +226,14 @@ public class HttpClientConfig {
         modifyDefaultCharset(restTemplate);
 
         //配置自定义的interceptor拦截器
-        List<ClientHttpRequestInterceptor> interceptors= new ArrayList<>();
-        restTemplate.setInterceptors(interceptors);
+        try {
+            Map<String, ClientHttpRequestInterceptor> requestInterceptorMap = applicationContext.getBeansOfType(ClientHttpRequestInterceptor.class);
+            if (CollectionUtil.isNotEmpty(requestInterceptorMap)) {
+                restTemplate.setInterceptors(CollectionUtil.newArrayList(requestInterceptorMap.values()));
+            }
+        }catch (Exception e) {
+            log.error("Failed to configure interceptor {}", e.getMessage());
+        }
 
         //设置错误处理器
         restTemplate.setErrorHandler(new DefaultResponseErrorHandler());
