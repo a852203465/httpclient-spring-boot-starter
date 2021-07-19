@@ -1,6 +1,7 @@
 package cn.darkjrong.spring.boot.autoconfigure;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -14,12 +15,13 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 @ComponentScan("cn.darkjrong.http")
+@ConditionalOnProperty(prefix = "http-client", name = "enabled", havingValue = "true")
 @ConditionalOnClass({HttpClientPoolProperties.class})
 @EnableConfigurationProperties({HttpClientPoolProperties.class})
 public class HttpAutoConfiguration {
 
     @Bean
-    public HttpFactoryBean hikCloudEyesFactory() {
+    public HttpFactoryBean httpFactoryBean() {
         return new HttpFactoryBean();
     }
 

@@ -14,6 +14,11 @@ import java.util.Map;
 public class HttpClientPoolProperties {
 
     /**
+     *  是否开启，默认不开启
+     */
+    private Boolean enabled = Boolean.FALSE;
+
+    /**
      * 连接池的最大连接数
      */
     private int maxTotalConnect;
@@ -57,6 +62,14 @@ public class HttpClientPoolProperties {
      * 针对不同的地址,特别设置不同的长连接保持时间,单位 s
      */
     private int keepAliveTime = 60;
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
 
     public int getMaxTotalConnect() {
         return maxTotalConnect;
