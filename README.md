@@ -48,7 +48,7 @@ http-client:
 ```java
     
     @Autowired
-    private RestTemplateClient restTemplateClient;
+    private RestTemplateUtils restTemplateUtils;
 
 ```
 

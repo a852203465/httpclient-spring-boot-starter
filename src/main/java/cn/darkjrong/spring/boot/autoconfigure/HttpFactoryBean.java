@@ -1,6 +1,6 @@
 package cn.darkjrong.spring.boot.autoconfigure;
 
-import cn.darkjrong.http.utils.RestTemplateClient;
+import cn.darkjrong.http.utils.RestTemplateUtils;
 import cn.hutool.core.util.ObjectUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,18 +16,18 @@ import org.springframework.web.client.RestTemplate;
  * @author Rong.Jia
  * @date 2021/02/03 09:03
  */
-public class HttpFactoryBean implements FactoryBean<RestTemplateClient>, InitializingBean, ApplicationContextAware {
+public class HttpFactoryBean implements FactoryBean<RestTemplateUtils>, InitializingBean, ApplicationContextAware {
 
     private static final Logger logger = LoggerFactory.getLogger(HttpFactoryBean.class);
 
     private ApplicationContext applicationContext;
-    private RestTemplateClient restTemplateClient;
+    private RestTemplateUtils restTemplateUtils;
 
     @Override
     public void afterPropertiesSet() {
         try {
             if (ObjectUtil.isNotNull(applicationContext)) {
-                this.restTemplateClient = new RestTemplateClient((RestTemplate)applicationContext.getBean("httpClientTemplate"));
+                this.restTemplateUtils = new RestTemplateUtils((RestTemplate)applicationContext.getBean("httpClientTemplate"));
             }
         }catch (Exception e) {
             logger.error("The alarm message callback thread failed to start {}", e.getMessage());
@@ -41,13 +41,13 @@ public class HttpFactoryBean implements FactoryBean<RestTemplateClient>, Initial
 
 
     @Override
-    public RestTemplateClient getObject() {
-        return this.restTemplateClient;
+    public RestTemplateUtils getObject() {
+        return this.restTemplateUtils;
     }
 
     @Override
     public Class<?> getObjectType() {
-        return RestTemplateClient.class;
+        return RestTemplateUtils.class;
     }
 
     @Override

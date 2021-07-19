@@ -26,14 +26,14 @@ import java.util.*;
  * @author Rong.Jia
  * @date 2019/12/28 21:03
  */
-public class RestTemplateClient {
+public class RestTemplateUtils {
 
-    private static final Logger log = LoggerFactory.getLogger(RestTemplateClient.class);
+    private static final Logger log = LoggerFactory.getLogger(RestTemplateUtils.class);
     private static final Integer success = 200;
     private static final String SERIAL_VERSION_UID = "serialVersionUID";
 
     private final RestTemplate restTemplate;
-    public RestTemplateClient(RestTemplate restTemplate) {
+    public RestTemplateUtils(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
     }
 
