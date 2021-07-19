@@ -1,12 +1,15 @@
-# Spring RestTemplate 封装，并制作Spring starter
+# Http 工具类封装，并制作Spring starter
 
-## 使用方式
+## 1. OkHttp使用方式
+ - https://okhttps.ejlchina.com
 
-1. 下载源码
+## 2. RestTemplate 使用方式
+
+### 1. 下载源码
 
 下载源码 并install，或者推送到私库引入使用
 
-2. 引入依赖
+### 2. 引入依赖
 
 ```xml
         <dependency>
@@ -16,7 +19,7 @@
         </dependency>
 ```
 
-3. 配置参数(application.properties)  yml配置
+### 3. 配置参数(application.properties)  yml配置
 
 ```yaml
 http-client:
@@ -41,16 +44,15 @@ http-client:
   keepAliveTargetHost:
     www.baidu.com: 5
 ```
-4. API 注入
+### 4. API 注入
 ```java
     
     @Autowired
-    private RestTemplateUtils restTemplateUtils;
-   
+    private RestTemplateClient restTemplateClient;
 
 ```
 
-5. 自定义Request 拦截器
+### 5. 自定义Request 拦截器
  实现ClientHttpRequestInterceptor，并放到Spring 容器中
 
 ```java
