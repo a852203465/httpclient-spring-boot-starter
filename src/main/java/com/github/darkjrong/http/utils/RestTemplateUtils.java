@@ -1,4 +1,4 @@
-package cn.darkjrong.http.utils;
+package com.github.darkjrong.http.utils;
 
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.ObjectUtil;

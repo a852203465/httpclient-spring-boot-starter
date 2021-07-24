@@ -1,6 +1,6 @@
-package cn.darkjrong.spring.boot.autoconfigure;
+package com.github.darkjrong.spring.boot.autoconfigure;
 
-import cn.darkjrong.http.utils.RestTemplateUtils;
+import com.github.darkjrong.http.utils.RestTemplateUtils;
 import cn.hutool.core.util.ObjectUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

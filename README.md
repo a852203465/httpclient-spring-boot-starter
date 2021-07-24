@@ -13,7 +13,7 @@
 
 ```xml
         <dependency>
-            <groupId>cn.darkjrong</groupId>
+            <groupId>com.github.darkjrong</groupId>
             <artifactId>httpclient-spring-boot-starter</artifactId>
             <version>1.0.0</version>
         </dependency>
