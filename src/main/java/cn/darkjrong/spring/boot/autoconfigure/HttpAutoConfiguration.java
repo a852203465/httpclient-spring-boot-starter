@@ -1,4 +1,4 @@
-package com.github.darkjrong.spring.boot.autoconfigure;
+package cn.darkjrong.spring.boot.autoconfigure;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;

@@ -1,6 +1,6 @@
-package com.github.darkjrong.http.config;
+package cn.darkjrong.http.config;
 
-import com.github.darkjrong.spring.boot.autoconfigure.HttpClientPoolProperties;
+import cn.darkjrong.spring.boot.autoconfigure.HttpClientPoolProperties;
 import cn.hutool.core.collection.CollectionUtil;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson.support.config.FastJsonConfig;

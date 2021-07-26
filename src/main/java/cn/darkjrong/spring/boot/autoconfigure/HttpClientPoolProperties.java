@@ -1,4 +1,4 @@
-package com.github.darkjrong.spring.boot.autoconfigure;
+package cn.darkjrong.spring.boot.autoconfigure;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
