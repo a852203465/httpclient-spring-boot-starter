@@ -1,9 +1,6 @@
 # Http 工具类封装，并制作Spring starter
 
-## 1. OkHttp使用方式
- - https://okhttps.ejlchina.com
-
-## 2. RestTemplate 使用方式
+## 1. RestTemplate 使用方式
 
 ### 1. 下载源码
 
