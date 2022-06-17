@@ -29,6 +29,7 @@ import org.apache.http.ssl.SSLContextBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.BeanCreationException;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.ApplicationContext;
@@ -157,8 +158,8 @@ public class HttpClientConfig implements ApplicationContextAware {
             return httpClientBuilder.build();
         } catch (KeyManagementException | NoSuchAlgorithmException | KeyStoreException e) {
             log.error("初始化HTTP连接池出错 {}", e.getMessage());
+            throw new BeanCreationException(e.getMessage());
         }
-        return null;
     }
 
 
